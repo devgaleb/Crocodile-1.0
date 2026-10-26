@@ -1,7 +1,16 @@
-::: {align="center"}
-`<img src="https://chatgpt.com/backend-api/estuary/content?id=file_000000001bf4820caa88c93a586505cf&ts=498066&p=fs&cid=1&sig=0e9c631aec42a9fb3ffbd5854bd6507863909702c9947e71636c6ef1d2bdb654&v=0" alt="Crocodile 2.2 — green crocodile emblem and wordmark" width="100%">`{=html}
+<div align="center">
 
-# Crocodile 2.2
+<img src="assets/crocodile-banner.png" alt="Crocodile 2.2 Logo" width="100%">
+
+# 🐊 Crocodile 2.2
+
+**SMARTER • FASTER • STRONGER**
+
+*AI Video Generation • Research • Creative Tools*
+
+</div>
+
+---
 
 ### Open video-generation research code • Text-to-video • Image-to-video
 
