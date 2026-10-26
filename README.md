@@ -1,6 +1,6 @@
 <div align="center">
 
-<img src="https://chatgpt.com/backend-api/estuary/content?id=file_00000000b5b882119a620a47d7f8e812&ts=498066&p=fs&cid=1&sig=eaf221d7d8ed851ea88e6440d7acb2a1438f11adedd7cf68b44956b1cd863729&v=0" alt="Crocodile 2.2 Logo" width="100%">
+<img src="assets/crocodile-banner.png" alt="Crocodile 2.2 Logo" width="100%">
 
 # 🐊 Crocodile 2.2
 
