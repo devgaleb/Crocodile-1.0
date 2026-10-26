@@ -1,5 +1,5 @@
 ::: {align="center"}
-`<img src="assets/crocodile-banner.png" alt="Crocodile 2.2 — green crocodile emblem and wordmark" width="100%">`{=html}
+`<img src="https://chatgpt.com/backend-api/estuary/content?id=file_000000001bf4820caa88c93a586505cf&ts=498066&p=fs&cid=1&sig=0e9c631aec42a9fb3ffbd5854bd6507863909702c9947e71636c6ef1d2bdb654&v=0" alt="Crocodile 2.2 — green crocodile emblem and wordmark" width="100%">`{=html}
 
 # Crocodile 2.2
 
