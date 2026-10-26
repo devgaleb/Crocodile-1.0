@@ -1,508 +1,379 @@
-# Crocodile-2.2
-
-<p align="center">
-    <img src="assets/logo.png" width="400"/>
-<p>
-
-<p align="center">
-    💜 <a href="https://Crocodile.video"><b>Crocodile</b></a> &nbsp&nbsp ｜ &nbsp&nbsp 🖥️ <a href="https://github.com/Crocodile-2.2">GitHub</a> &nbsp&nbsp  | &nbsp&nbsp🤗 <a href="https://huggingface.co/Crocodile/">Hugging Face</a>&nbsp&nbsp | &nbsp&nbsp🤖 <a href="https://modelscope.cn/organization/Crocodile">ModelScope</a>&nbsp&nbsp | &nbsp&nbsp 📑 <a href="https://arxiv.org/abs/2503.20314">Paper</a> &nbsp&nbsp | &nbsp&nbsp 📑 <a href="https://Crocodile.video/welcome?spm=a2ty_o02.30011076.0.0.6c9ee41eCcluqg">Blog</a> &nbsp&nbsp |  &nbsp&nbsp 💬  <a href="https://discord.gg/AKNgpMK4Yj">Discord</a>&nbsp&nbsp
-    <br>
-    📕 <a href="https://alidocs.dingtalk.com/i/nodes/jb9Y4gmKWrx9eo4dCql9LlbYJGXn6lpz">使用指南(中文)</a>&nbsp&nbsp | &nbsp&nbsp 📘 <a href="https://alidocs.dingtalk.com/i/nodes/EpGBa2Lm8aZxe5myC99MelA2WgN7R35y">User Guide(English)</a>&nbsp&nbsp | &nbsp&nbsp💬 <a href="https://gw.alicdn.com/imgextra/i2/O1CN01tqjWFi1ByuyehkTSB_!!6000000000015-0-tps-611-1279.jpg">WeChat(微信)</a>&nbsp&nbsp
-<br>
-
------
-
-[**Crocodile: Open and Advanced Large-Scale Video Generative Models**](https://arxiv.org/abs/2503.20314) <be>
-
-
-We are excited to introduce **Crocodile-2.2**, a major upgrade to our foundational video models. With **Crocodile-2.2**, we have focused on incorporating the following innovations:
-
-- 👍 **Effective MoE Architecture**: Crocodile-2.2 introduces a Mixture-of-Experts (MoE) architecture into video diffusion models. By separating the denoising process cross timesteps with specialized powerful expert models, this enlarges the overall model capacity while maintaining the same computational cost.
-
-- 👍 **Cinematic-level Aesthetics**: Crocodile-2.2 incorporates meticulously curated aesthetic data, complete with detailed labels for lighting, composition, contrast, color tone, and more. This allows for more precise and controllable cinematic style generation, facilitating the creation of videos with customizable aesthetic preferences.
-
-- 👍 **Complex Motion Generation**: Compared to Crocodile2.1, Crocodile-2.2 is trained on a significantly larger data, with +65.6% more images and +83.2% more videos. This expansion notably enhances the model's generalization across multiple dimensions such as motions,  semantics, and aesthetics, achieving TOP performance among all open-sourced and closed-sourced models. 
-
-- 👍 **Efficient High-Definition Hybrid TI2V**:  Crocodile-2.2 open-sources a 5B model built with our advanced Crocodile-2.2-VAE that achieves a compression ratio of **16×16×4**. This model supports both text-to-video and image-to-video generation at 720P resolution with 24fps and can also run on consumer-grade graphics cards like 4090. It is one of the fastest **720P@24fps** models currently available, capable of serving both the industrial and academic sectors simultaneously.
-
-
-## Video Demos
-
 <div align="center">
-  <video src="https://github.com/user-attachments/assets/b63bfa58-d5d7-4de6-a1a2-98970b06d9a7" width="70%" poster=""> </video>
+
+<img src="assets/crocodile-banner.png" alt="Crocodile 2.2 Logo" width="100%">
+
+# 🐊 Crocodile 2.2
+
+**SMARTER • FASTER • STRONGER**
+
+*AI Video Generation • Research • Creative Tools*
+
 </div>
 
-## 🔥 Latest News!!
-* Nov 13, 2025: 👋 Crocodile-2.2-Animate-14B has been integrated into Diffusers ([PR](https://github.com/huggingface/diffusers/pull/12526),[Weights](https://huggingface.co/Crocodile/Crocodile-2.2-Animate-14B-Diffusers)). Thanks to all community contributors. Enjoy!
+---
 
-* Sep 19, 2025: 💃 We introduct **[Crocodile-2.2-Animate-14B](https://humanaigc.github.io/Crocodile-animate)**, an unified model for character animation and replacement with holistic movement and expression replication. We released the [model weights](#model-download) and [inference code](#run-Crocodile-animate). And you can try it on [Crocodile.video](https://Crocodile.video/), [ModelScope Studio](https://www.modelscope.cn/studios/Crocodile/Crocodile-2.2-Animate) or [HuggingFace Space](https://huggingface.co/spaces/Crocodile/Crocodile-2.2-Animate)!
-* Aug 26, 2025: 🎵 We introduce **[Crocodile-2.2-S2V-14B](https://humanaigc.github.io/Crocodile-s2v-webpage)**, an audio-driven cinematic video generation model, including [inference code](#run-speech-to-video-generation), [model weights](#model-download), and [technical report](https://humanaigc.github.io/Crocodile-s2v-webpage/content/Crocodile-s2v.pdf)! Now you can try it on [Crocodile.video](https://Crocodile.video/),  [ModelScope Gradio](https://www.modelscope.cn/studios/Crocodile/Crocodile-2.2-S2V) or [HuggingFace Gradio](https://huggingface.co/spaces/Crocodile/Crocodile-2.2-S2V)!
-* Jul 28, 2025: 👋 We have open a [HF space](https://huggingface.co/spaces/Crocodile/Crocodile-2.2-5B) using the TI2V-5B model. Enjoy!
-* Jul 28, 2025: 👋 Crocodile-2.2 has been integrated into ComfyUI ([CN](https://docs.comfy.org/zh-CN/tutorials/video/Crocodile/Crocodile2_2) | [EN](https://docs.comfy.org/tutorials/video/Crocodile/Crocodile2_2)). Enjoy!
-* Jul 28, 2025: 👋 Crocodile-2.2's T2V, I2V and TI2V have been integrated into Diffusers ([T2V-A14B](https://huggingface.co/Crocodile/Crocodile-2.2-T2V-A14B-Diffusers) | [I2V-A14B](https://huggingface.co/Crocodile/Crocodile-2.2-I2V-A14B-Diffusers) | [TI2V-5B](https://huggingface.co/Crocodile/Crocodile-2.2-TI2V-5B-Diffusers)). Feel free to give it a try!
-* Jul 28, 2025: 👋 We've released the inference code and model weights of **Crocodile-2.2**.
-* Sep 5, 2025: 👋 We add text-to-speech synthesis support with [CosyVoice](https://github.com/FunAudioLLM/CosyVoice) for Speech-to-Video generation task.
+### Open video-generation research code • Text-to-video • Image-to-video
 
+**A community-maintained project presentation for the Crocodile 2.2
+codebase.**
 
-## Community Works
-If your research or project builds upon [**Crocodile2.1**](https://github.com/Crocodile/Crocodile2.1) or [**Crocodile-2.2**](https://github.com/Crocodile-2.2), and you would like more people to see it, please inform us.
+```{=html}
+<p>
+```
+`<img alt="Version" src="https://img.shields.io/badge/version-2.2-38d430?style=for-the-badge">`{=html}
+`<img alt="Python" src="https://img.shields.io/badge/Python-3.10%2B-3776AB?style=for-the-badge&logo=python&logoColor=white">`{=html}
+`<img alt="PyTorch" src="https://img.shields.io/badge/PyTorch-2.4%2B-EE4C2C?style=for-the-badge&logo=pytorch&logoColor=white">`{=html}
+`<img alt="License" src="https://img.shields.io/badge/License-Apache--2.0-green?style=for-the-badge">`{=html}
+```{=html}
+</p>
+```
+[Features](#features) · [Repository setup](#repository-setup) ·
+[Models](#models-and-checkpoints) · [Quick start](#quick-start) ·
+[Hardware](#hardware-and-performance) ·
+[Credits](#credits-and-attribution)
+:::
 
-- [Prompt Relay](https://github.com/GordonChen19/Prompt-Relay), a plug-and-play, inference-time method for temporal control in video generation. Prompt Relay improves video quality and gives users precise control over what happens at each moment in the video. Visit their [webpage](https://gordonchen19.github.io/Prompt-Relay/) for more details.
-- [Helios](https://github.com/PKU-YuanGroup/Helios), a breakthrough video generation model base on **Crocodile2.1** that achieves minute-scale, high-quality video synthesis at 19.5 FPS on a single H100 GPU (about 10 FPS on a single Ascend NPU) —without relying on conventional long video anti-drifting strategies or standard video acceleration techniques. Visit their [webpage](https://pku-yuangroup.github.io/Helios-Page/) for more details.
-- [LightX2V](https://github.com/ModelTC/LightX2V), a lightweight and efficient video generation framework that integrates **Crocodile2.1** and **Crocodile-2.2**, supporting multiple engineering acceleration techniques for fast inference. [LightX2V-HuggingFace](https://huggingface.co/lightx2v), offers a variety of Crocodile-based step-distillation models, quantized models, and lightweight VAE models.
-- [HuMo](https://github.com/Phantom-video/HuMo) proposed a unified, human-centric framework based on **Crocodile** to produce high-quality, fine-grained, and controllable human videos from multimodal inputs—including text, images, and audio. Visit their [webpage](https://phantom-video.github.io/HuMo/) for more details.
-- [FastVideo](https://github.com/hao-ai-lab/FastVideo) includes distilled **Crocodile** models with sparse attention that significanly speed up the inference time. 
-- [Cache-dit](https://github.com/vipshop/cache-dit) offers Fully Cache Acceleration support for **Crocodile-2.2** MoE with DBCache, TaylorSeer and Cache CFG. Visit their [example](https://github.com/vipshop/cache-dit/blob/main/examples/pipeline/run_Crocodile_2.2.py) for more details.
-- [Kijai's ComfyUI CrocodileVideoWrapper](https://github.com/kijai/ComfyUI-CrocodileVideoWrapper) is an alternative implementation of **Crocodile** models for ComfyUI. Thanks to its Crocodile-only focus, it's on the frontline of getting cutting edge optimizations and hot research features, which are often hard to integrate into ComfyUI quickly due to its more rigid structure.
-- [DiffSynth-Studio](https://github.com/modelscope/DiffSynth-Studio) provides comprehensive support for **Crocodile 2.2**, including low-GPU-memory layer-by-layer offload, FP8 quantization, sequence parallelism, LoRA training, full training.
-- [TalkVerse](https://zhenzhiCrocodileg.github.io/talkverse/), built on **Crocodile-2.2-TI2V-5B**, enables minute-long audio-driven human video generation. It provides a **[large-scale dataset](https://huggingface.co/datasets/zhenzhiCrocodileg/TalkVerse)**, together with [training and inference code and model weights](https://github.com/snap-research/TalkVerse), to support reproducible research and development, especially for researchers with limited computational budgets.
+------------------------------------------------------------------------
 
+## Overview
 
-## 📑 Todo List
-- Crocodile-2.2 Text-to-Video
-    - [x] Multi-GPU Inference code of the A14B and 14B models
-    - [x] Checkpoints of the A14B and 14B models
-    - [x] ComfyUI integration
-    - [x] Diffusers integration
-- Crocodile-2.2 Image-to-Video
-    - [x] Multi-GPU Inference code of the A14B model
-    - [x] Checkpoints of the A14B model
-    - [x] ComfyUI integration
-    - [x] Diffusers integration
-- Crocodile-2.2 Text-Image-to-Video
-    - [x] Multi-GPU Inference code of the 5B model
-    - [x] Checkpoints of the 5B model
-    - [x] ComfyUI integration
-    - [x] Diffusers integration
-- Crocodile-2.2-S2V Speech-to-Video
-    - [x] Inference code of Crocodile-2.2-S2V
-    - [x] Checkpoints of Crocodile-2.2-S2V-14B
-    - [x] ComfyUI integration
-    - [x] Diffusers integration
-- Crocodile-2.2-Animate Character Animation and Replacement
-    - [x] Inference code of Crocodile-2.2-Animate
-    - [x] Checkpoints of Crocodile-2.2-Animate
-    - [x] ComfyUI integration
-    - [x] Diffusers integration
+Crocodile 2.2 is a research-oriented video-generation codebase for
+generating video from text prompts, animating still images, and
+exploring related multimodal generation workflows. The repository
+contains inference scripts, model components, utility modules, and
+distributed-execution support.
 
-## Run Crocodile-2.2
+This GitHub repository is maintained as a community-facing project. The
+**Crocodile** name, logo, and README presentation do not imply that the
+repository maintainer trained the underlying models or owns the original
+research.
 
-#### Installation
-Clone the repo:
-```sh
-git clone https://github.com/Crocodile-2.2.git
-cd Crocodile-2.2
+## Features
+
+-   **Text-to-video (T2V):** generate a video from a written prompt.
+-   **Image-to-video (I2V):** use a still image as the visual starting
+    point for a generated clip.
+-   **Text-and-image-to-video (TI2V):** combine a prompt and an image in
+    supported workflows.
+-   **Speech-driven video workflows:** optional components are provided
+    for speech-to-video tasks.
+-   **Character animation tools:** the codebase includes
+    animation-related modules.
+-   **High-resolution workflows:** supported output size depends on the
+    selected model checkpoint and available hardware.
+-   **Distributed inference utilities:** includes code for multi-GPU
+    execution.
+-   **Configurable inference:** options include model offloading and
+    prompt extension in supported scripts.
+
+Actual output quality, supported resolutions, speed, and memory use
+depend on the checkpoint, runtime environment, settings, and hardware.
+Features are not guaranteed to work until tested in your environment.
+
+## Repository structure
+
+``` text
+Crocodile-1.0/
+├── assets/                 # Project images and README branding
+├── crocodile/              # Model code, pipelines, and utilities
+│   ├── distributed/        # Distributed inference helpers
+│   ├── modules/            # Model and neural-network components
+│   └── utils/              # Supporting utilities
+├── tests/                  # Test scripts
+├── generate.py             # Main generation entry point
+├── requirements.txt        # Core Python dependencies
+├── requirements_s2v.txt    # Optional speech-to-video dependencies
+├── requirements_animate.txt# Optional animation dependencies
+├── INSTALL.md              # Additional installation notes
+├── LICENSE.txt             # License text
+└── README.md
 ```
 
-Install dependencies:
-```sh
-# Ensure torch >= 2.4.0
-# If the installation of `flash_attn` fails, try installing the other packages first and install `flash_attn` last
+The exact files in your branch may differ as the project evolves.
+
+## Repository setup
+
+### 1. Clone the repository
+
+``` bash
+git clone https://github.com/devgaleb/Crocodile-1.0.git
+cd Crocodile-1.0
+```
+
+### 2. Create an isolated Python environment
+
+Python 3.10 or newer is expected by the project metadata. A compatible
+PyTorch build and NVIDIA GPU/CUDA setup are recommended for inference.
+
+``` bash
+python -m venv .venv
+```
+
+Activate it:
+
+**Linux**
+
+``` bash
+source .venv/bin/activate
+```
+
+**Windows PowerShell**
+
+``` powershell
+.venv\Scripts\Activate.ps1
+```
+
+Upgrade packaging tools:
+
+``` bash
+python -m pip install --upgrade pip setuptools wheel
+```
+
+### 3. Install dependencies
+
+Install a PyTorch build that matches your operating system and CUDA
+setup, following the official PyTorch installation selector first. Then
+install the project dependencies:
+
+``` bash
 pip install -r requirements.txt
-# If you Crocodilet to use CosyVoice to synthesize speech for Speech-to-Video Generation, please install requirements_s2v.txt additionally
+```
+
+Optional speech-to-video dependencies:
+
+``` bash
 pip install -r requirements_s2v.txt
 ```
 
+Optional animation dependencies:
 
-#### Model Download
-
-| Models              | Download Links                                                                                                                              | Description |
-|--------------------|---------------------------------------------------------------------------------------------------------------------------------------------|-------------|
-| T2V-A14B    | 🤗 [Huggingface](https://huggingface.co/Crocodile/Crocodile-2.2-T2V-A14B)    🤖 [ModelScope](https://modelscope.cn/models/Crocodile/Crocodile-2.2-T2V-A14B)    | Text-to-Video MoE model, supports 480P & 720P |
-| I2V-A14B    | 🤗 [Huggingface](https://huggingface.co/Crocodile/Crocodile-2.2-I2V-A14B)    🤖 [ModelScope](https://modelscope.cn/models/Crocodile/Crocodile-2.2-I2V-A14B)    | Image-to-Video MoE model, supports 480P & 720P |
-| TI2V-5B     | 🤗 [Huggingface](https://huggingface.co/Crocodile/Crocodile-2.2-TI2V-5B)     🤖 [ModelScope](https://modelscope.cn/models/Crocodile/Crocodile-2.2-TI2V-5B)     | High-compression VAE, T2V+I2V, supports 720P |
-| S2V-14B     | 🤗 [Huggingface](https://huggingface.co/Crocodile/Crocodile-2.2-S2V-14B)     🤖 [ModelScope](https://modelscope.cn/models/Crocodile/Crocodile-2.2-S2V-14B)     | Speech-to-Video model, supports 480P & 720P |
-| Animate-14B | 🤗 [Huggingface](https://huggingface.co/Crocodile/Crocodile-2.2-Animate-14B) 🤖 [ModelScope](https://www.modelscope.cn/models/Crocodile/Crocodile-2.2-Animate-14B)  | Character animation and replacement | |
-
-
-
-> 💡Note: 
-> The TI2V-5B model supports 720P video generation at **24 FPS**.
-
-
-Download models using huggingface-cli:
-``` sh
-pip install "huggingface_hub[cli]"
-huggingface-cli download Crocodile/Crocodile-2.2-T2V-A14B --local-dir ./Crocodile-2.2-T2V-A14B
+``` bash
+pip install -r requirements_animate.txt
 ```
 
-Download models using modelscope-cli:
-``` sh
-pip install modelscope
-modelscope download Crocodile/Crocodile-2.2-T2V-A14B --local_dir ./Crocodile-2.2-T2V-A14B
+Some packages, particularly GPU-specific attention libraries, may
+require a compatible Linux, CUDA, compiler, and PyTorch combination. If
+installation fails, consult `INSTALL.md` and the package's official
+instructions.
+
+## Models and checkpoints
+
+The code repository and model weights are separate. Download the
+checkpoint required by your chosen task and make note of its exact local
+directory. Use only checkpoints you are authorized to access and follow
+their individual licenses and usage conditions.
+
+The generation examples below use a text-to-video checkpoint directory
+named `./Crocodile-2.2-T2V-A14B`. Replace that path if your checkpoint
+is stored elsewhere.
+
+For large checkpoints, ensure you have enough free disk space and
+bandwidth. Do not commit model weights, API keys, or other large/private
+files to Git unless the repository is explicitly configured for them.
+
+## Quick start
+
+### Text-to-video
+
+After installing dependencies and downloading a compatible checkpoint:
+
+``` bash
+python generate.py \
+  --task t2v-A14B \
+  --size 1280*720 \
+  --ckpt_dir ./Crocodile-2.2-T2V-A14B \
+  --offload_model True \
+  --convert_model_dtype \
+  --prompt "A tiny glass greenhouse in a rainforest at sunrise, cinematic light, slow camera movement"
 ```
 
-#### Run Text-to-Video Generation
+This is an example command, not a guarantee that it will run on every
+GPU. Large checkpoints can require substantial GPU memory. If you
+encounter an out-of-memory error, check the model documentation and
+available options for offloading, resolution, and dtype.
 
-This repository supports the `Crocodile-2.2-T2V-A14B` Text-to-Video model and can simultaneously support video generation at 480P and 720P resolutions.
+### Multi-GPU example
 
+For a machine with eight suitably configured GPUs, the codebase includes
+distributed inference support. One example for a compatible environment
+is:
 
-##### (1) Without Prompt Extension
-
-To facilitate implementation, we will start with a basic version of the inference process that skips the [prompt extension](#2-using-prompt-extention) step.
-
-- Single-GPU inference
-
-``` sh
-python generate.py  --task t2v-A14B --size 1280*720 --ckpt_dir ./Crocodile-2.2-T2V-A14B --offload_model True --convert_model_dtype --prompt "Two anthropomorphic cats in comfy boxing gear and bright gloves fight intensely on a spotlighted stage."
+``` bash
+torchrun --nproc_per_node=8 generate.py \
+  --task t2v-A14B \
+  --size 1280*720 \
+  --ckpt_dir ./Crocodile-2.2-T2V-A14B \
+  --dit_fsdp \
+  --t5_fsdp \
+  --ulysses_size 8 \
+  --prompt "A quiet futuristic city reflected in rain-soaked streets at blue hour"
 ```
 
-> 💡 This command can run on a GPU with at least 80GB VRAM.
+The number of processes and parallelism settings must match your
+hardware and environment. Do not run this command unchanged on a
+single-GPU or CPU-only device.
 
-> 💡If you encounter OOM (Out-of-Memory) issues, you can use the `--offload_model True`, `--convert_model_dtype` and `--t5_cpu` options to reduce GPU memory usage.
+### Prompt extension
 
+Some workflows support prompt extension through a remote API or a local
+language model. Remote services may require an API key and may incur
+charges. Store credentials in environment variables or a secrets
+manager; never place them directly in source files or commit them to
+Git.
 
-- Multi-GPU inference using FSDP + DeepSpeed Ulysses
+For the full list of flags and task names available in your checked-out
+version, run:
 
-  We use [PyTorch FSDP](https://docs.pytorch.org/docs/stable/fsdp.html) and [DeepSpeed Ulysses](https://arxiv.org/abs/2309.14509) to accelerate inference.
-
-
-``` sh
-torchrun --nproc_per_node=8 generate.py --task t2v-A14B --size 1280*720 --ckpt_dir ./Crocodile-2.2-T2V-A14B --dit_fsdp --t5_fsdp --ulysses_size 8 --prompt "Two anthropomorphic cats in comfy boxing gear and bright gloves fight intensely on a spotlighted stage."
+``` bash
+python generate.py --help
 ```
 
+## Hardware and performance
 
-##### (2) Using Prompt Extension
+Video generation is computationally intensive. The memory requirement
+depends on the checkpoint size, output resolution, frame count,
+precision, and inference options.
 
-Extending the prompts can effectively enrich the details in the generated videos, further enhancing the video quality. Therefore, we recommend enabling prompt extension. We provide the following two methods for prompt extension:
+-   A compatible NVIDIA GPU is recommended for practical inference.
+-   CUDA, PyTorch, and GPU library versions must be mutually compatible.
+-   Multi-GPU commands require the corresponding number of available and
+    correctly configured GPUs.
+-   CPU offloading may reduce VRAM pressure but can increase runtime and
+    system RAM use.
+-   Mobile devices and Termux are useful for repository management, but
+    this codebase's full model inference stack should not be assumed to
+    run directly on Android.
 
-- Use the Dashscope API for extension.
-  - Apply for a `dashscope.api_key` in advance ([EN](https://www.alibabacloud.com/help/en/model-studio/getting-started/first-api-call-to-qwen) | [CN](https://help.aliyun.com/zh/model-studio/getting-started/first-api-call-to-qwen)).
-  - Configure the environment variable `DASH_API_KEY` to specify the Dashscope API key. For users of Alibaba Cloud's international site, you also need to set the environment variable `DASH_API_URL` to 'https://dashscope-intl.aliyuncs.com/api/v1'. For more detailed instructions, please refer to the [dashscope document](https://www.alibabacloud.com/help/en/model-studio/developer-reference/use-qwen-by-calling-api?spm=a2c63.p38356.0.i1).
-  - Use the `qwen-plus` model for text-to-video tasks and `qwen-vl-max` for image-to-video tasks.
-  - You can modify the model used for extension with the parameter `--prompt_extend_model`. For example:
-```sh
-DASH_API_KEY=your_key torchrun --nproc_per_node=8 generate.py  --task t2v-A14B --size 1280*720 --ckpt_dir ./Crocodile-2.2-T2V-A14B --dit_fsdp --t5_fsdp --ulysses_size 8 --prompt "Two anthropomorphic cats in comfy boxing gear and bright gloves fight intensely on a spotlighted stage" --use_prompt_extend --prompt_extend_method 'dashscope' --prompt_extend_target_lang 'zh'
+No benchmark results are claimed by this README. Please publish measured
+hardware, settings, and timings when sharing performance reports.
+
+## Testing and development
+
+The repository includes test-related files. Review their contents before
+executing scripts, and run tests only in an environment with the
+necessary dependencies and checkpoints.
+
+``` bash
+bash tests/test.sh
 ```
 
-- Using a local model for extension.
+Formatting and development tools may be installed using the optional
+development dependencies described in `pyproject.toml` or `INSTALL.md`.
 
-  - By default, the Qwen model on HuggingFace is used for this extension. Users can choose Qwen models or other models based on the available GPU memory size.
-  - For text-to-video tasks, you can use models like `Qwen/Qwen2.5-14B-Instruct`, `Qwen/Qwen2.5-7B-Instruct` and `Qwen/Qwen2.5-3B-Instruct`.
-  - For image-to-video tasks, you can use models like `Qwen/Qwen2.5-VL-7B-Instruct` and `Qwen/Qwen2.5-VL-3B-Instruct`.
-  - Larger models generally provide better extension results but require more GPU memory.
-  - You can modify the model used for extension with the parameter `--prompt_extend_model` , allowing you to specify either a local model path or a Hugging Face model. For example:
+## Troubleshooting
 
-``` sh
-torchrun --nproc_per_node=8 generate.py  --task t2v-A14B --size 1280*720 --ckpt_dir ./Crocodile-2.2-T2V-A14B --dit_fsdp --t5_fsdp --ulysses_size 8 --prompt "Two anthropomorphic cats in comfy boxing gear and bright gloves fight intensely on a spotlighted stage" --use_prompt_extend --prompt_extend_method 'local_qwen' --prompt_extend_target_lang 'zh'
+```{=html}
+<details>
 ```
-
-
-#### Run Image-to-Video Generation
-
-This repository supports the `Crocodile-2.2-I2V-A14B` Image-to-Video model and can simultaneously support video generation at 480P and 720P resolutions.
-
-
-- Single-GPU inference
-```sh
-python generate.py --task i2v-A14B --size 1280*720 --ckpt_dir ./Crocodile-2.2-I2V-A14B --offload_model True --convert_model_dtype --image examples/i2v_input.JPG --prompt "Summer beach vacation style, a white cat wearing sunglasses sits on a surfboard. The fluffy-furred feline gazes directly at the camera with a relaxed expression. Blurred beach scenery forms the background featuring crystal-clear waters, distant green hills, and a blue sky dotted with white clouds. The cat assumes a naturally relaxed posture, as if savoring the sea breeze and warm sunlight. A close-up shot highlights the feline's intricate details and the refreshing atmosphere of the seaside."
+```{=html}
+<summary>
 ```
-
-> This command can run on a GPU with at least 80GB VRAM.
-
-> 💡For the Image-to-Video task, the `size` parameter represents the area of the generated video, with the aspect ratio following that of the original input image.
-
-
-- Multi-GPU inference using FSDP + DeepSpeed Ulysses
-
-```sh
-torchrun --nproc_per_node=8 generate.py --task i2v-A14B --size 1280*720 --ckpt_dir ./Crocodile-2.2-I2V-A14B --image examples/i2v_input.JPG --dit_fsdp --t5_fsdp --ulysses_size 8 --prompt "Summer beach vacation style, a white cat wearing sunglasses sits on a surfboard. The fluffy-furred feline gazes directly at the camera with a relaxed expression. Blurred beach scenery forms the background featuring crystal-clear waters, distant green hills, and a blue sky dotted with white clouds. The cat assumes a naturally relaxed posture, as if savoring the sea breeze and warm sunlight. A close-up shot highlights the feline's intricate details and the refreshing atmosphere of the seaside."
+`<strong>`{=html}Dependency or GPU-library installation
+fails`</strong>`{=html}
+```{=html}
+</summary>
 ```
-
-- Image-to-Video Generation without prompt
-
-```sh
-DASH_API_KEY=your_key torchrun --nproc_per_node=8 generate.py --task i2v-A14B --size 1280*720 --ckpt_dir ./Crocodile-2.2-I2V-A14B --prompt '' --image examples/i2v_input.JPG --dit_fsdp --t5_fsdp --ulysses_size 8 --use_prompt_extend --prompt_extend_method 'dashscope'
+Confirm your Python, PyTorch, CUDA, compiler, and GPU-library versions
+are compatible. Install the matching PyTorch build first, then follow
+the relevant dependency's official installation instructions. Some GPU
+libraries are not available on every operating system or architecture.
+```{=html}
+</details>
 ```
-
-> 💡The model can generate videos solely from the input image. You can use prompt extension to generate prompt from the image.
-
-> The process of prompt extension can be referenced [here](#2-using-prompt-extention).
-
-#### Run Text-Image-to-Video Generation
-
-This repository supports the `Crocodile-2.2-TI2V-5B` Text-Image-to-Video model and can support video generation at 720P resolutions.
-
-
-- Single-GPU Text-to-Video inference
-```sh
-python generate.py --task ti2v-5B --size 1280*704 --ckpt_dir ./Crocodile-2.2-TI2V-5B --offload_model True --convert_model_dtype --t5_cpu --prompt "Two anthropomorphic cats in comfy boxing gear and bright gloves fight intensely on a spotlighted stage"
+```{=html}
+<details>
 ```
-
-> 💡Unlike other tasks, the 720P resolution of the Text-Image-to-Video task is `1280*704` or `704*1280`.
-
-> This command can run on a GPU with at least 24GB VRAM (e.g, RTX 4090 GPU).
-
-> 💡If you are running on a GPU with at least 80GB VRAM, you can remove the `--offload_model True`, `--convert_model_dtype` and `--t5_cpu` options to speed up execution.
-
-
-- Single-GPU Image-to-Video inference
-```sh
-python generate.py --task ti2v-5B --size 1280*704 --ckpt_dir ./Crocodile-2.2-TI2V-5B --offload_model True --convert_model_dtype --t5_cpu --image examples/i2v_input.JPG --prompt "Summer beach vacation style, a white cat wearing sunglasses sits on a surfboard. The fluffy-furred feline gazes directly at the camera with a relaxed expression. Blurred beach scenery forms the background featuring crystal-clear waters, distant green hills, and a blue sky dotted with white clouds. The cat assumes a naturally relaxed posture, as if savoring the sea breeze and warm sunlight. A close-up shot highlights the feline's intricate details and the refreshing atmosphere of the seaside."
+```{=html}
+<summary>
 ```
-
-> 💡If the image parameter is configured, it is an Image-to-Video generation; otherwise, it defaults to a Text-to-Video generation.
-
-> 💡Similar to Image-to-Video, the `size` parameter represents the area of the generated video, with the aspect ratio following that of the original input image.
-
-
-- Multi-GPU inference using FSDP + DeepSpeed Ulysses
-
-```sh
-torchrun --nproc_per_node=8 generate.py --task ti2v-5B --size 1280*704 --ckpt_dir ./Crocodile-2.2-TI2V-5B --dit_fsdp --t5_fsdp --ulysses_size 8 --image examples/i2v_input.JPG --prompt "Summer beach vacation style, a white cat wearing sunglasses sits on a surfboard. The fluffy-furred feline gazes directly at the camera with a relaxed expression. Blurred beach scenery forms the background featuring crystal-clear waters, distant green hills, and a blue sky dotted with white clouds. The cat assumes a naturally relaxed posture, as if savoring the sea breeze and warm sunlight. A close-up shot highlights the feline's intricate details and the refreshing atmosphere of the seaside."
+`<strong>`{=html}CUDA out-of-memory error`</strong>`{=html}
+```{=html}
+</summary>
 ```
-
-> The process of prompt extension can be referenced [here](#2-using-prompt-extention).
-
-#### Run Speech-to-Video Generation
-
-This repository supports the `Crocodile-2.2-S2V-14B` Speech-to-Video model and can simultaneously support video generation at 480P and 720P resolutions.
-
-- Single-GPU Speech-to-Video inference
-
-```sh
-python generate.py  --task s2v-14B --size 1024*704 --ckpt_dir ./Crocodile-2.2-S2V-14B/ --offload_model True --convert_model_dtype --prompt "Summer beach vacation style, a white cat wearing sunglasses sits on a surfboard."  --image "examples/i2v_input.JPG" --audio "examples/talk.wav"
-# Without setting --num_clip, the generated video length will automatically adjust based on the input audio length
-
-# You can use CosyVoice to generate audio with --enable_tts
-python generate.py  --task s2v-14B --size 1024*704 --ckpt_dir ./Crocodile-2.2-S2V-14B/ --offload_model True --convert_model_dtype --prompt "Summer beach vacation style, a white cat wearing sunglasses sits on a surfboard."  --image "examples/i2v_input.JPG" --enable_tts --tts_prompt_audio "examples/zero_shot_prompt.wav" --tts_prompt_text "希望你以后能够做的比我还好呦。" --tts_text "收到好友从远方寄来的生日礼物，那份意外的惊喜与深深的祝福让我心中充满了甜蜜的快乐，笑容如花儿般绽放。"
+Try a smaller supported resolution, model offloading, or other
+memory-saving options documented by the selected task. Close other GPU
+processes and confirm that the checkpoint matches the inference script.
+```{=html}
+</details>
 ```
-
-> 💡 This command can run on a GPU with at least 80GB VRAM.
-
-- Multi-GPU inference using FSDP + DeepSpeed Ulysses
-
-```sh
-torchrun --nproc_per_node=8 generate.py --task s2v-14B --size 1024*704 --ckpt_dir ./Crocodile-2.2-S2V-14B/ --dit_fsdp --t5_fsdp --ulysses_size 8 --prompt "Summer beach vacation style, a white cat wearing sunglasses sits on a surfboard." --image "examples/i2v_input.JPG" --audio "examples/talk.wav"
+```{=html}
+<details>
 ```
-
-- Pose + Audio driven generation
-
-```sh
-torchrun --nproc_per_node=8 generate.py --task s2v-14B --size 1024*704 --ckpt_dir ./Crocodile-2.2-S2V-14B/ --dit_fsdp --t5_fsdp --ulysses_size 8 --prompt "a person is singing" --image "examples/pose.png" --audio "examples/sing.MP3" --pose_video "./examples/pose.mp4" 
+```{=html}
+<summary>
 ```
-
-> 💡For the Speech-to-Video task, the `size` parameter represents the area of the generated video, with the aspect ratio following that of the original input image.
-
-> 💡The model can generate videos from audio input combined with reference image and optional text prompt.
-
-> 💡The `--pose_video` parameter enables pose-driven generation, allowing the model to follow specific pose sequences while generating videos synchronized with audio input.
-
-> 💡The `--num_clip` parameter controls the number of video clips generated, useful for quick preview with shorter generation time.
-
-Please visit our project page to see more examples and learn about the scenarios suitable for this model.
-
-#### Run Crocodile-Animate 
-
-Crocodile-Animate takes a video and a character image as input, and generates a video in either "animation" or "replacement" mode. 
-
-1. animation mode： The model generates a video of the character image that mimics the human motion in the input video.
-2. replacement mode: The model replaces the character image with the input video.
-
-Please visit our [project page](https://humanaigc.github.io/Crocodile-animate) to see more examples and learn about the scenarios suitable for this model.
-
-##### (1) Preprocessing 
-The input video should be preprocessed into several materials before be feed into the inference process.  Please refer to the following processing flow, and more details about preprocessing can be found in [UserGuider](https://github.com/Crocodile-2.2/blob/main/Crocodile/modules/animate/preprocess/UserGuider.md).
-
-* For animation
-```bash
-python ./Crocodile/modules/animate/preprocess/preprocess_data.py \
-    --ckpt_path ./Crocodile-2.2-Animate-14B/process_checkpoint \
-    --video_path ./examples/Crocodile_animate/animate/video.mp4 \
-    --refer_path ./examples/Crocodile_animate/animate/image.jpeg \
-    --save_path ./examples/Crocodile_animate/animate/process_results \
-    --resolution_area 1280 720 \
-    --retarget_flag \
-    --use_flux
+`<strong>`{=html}Checkpoint or configuration not found`</strong>`{=html}
+```{=html}
+</summary>
 ```
-* For replacement
-```bash
-python ./Crocodile/modules/animate/preprocess/preprocess_data.py \
-    --ckpt_path ./Crocodile-2.2-Animate-14B/process_checkpoint \
-    --video_path ./examples/Crocodile_animate/replace/video.mp4 \
-    --refer_path ./examples/Crocodile_animate/replace/image.jpeg \
-    --save_path ./examples/Crocodile_animate/replace/process_results \
-    --resolution_area 1280 720 \
-    --iterations 3 \
-    --k 7 \
-    --w_len 1 \
-    --h_len 1 \
-    --replace_flag
+Check that `--ckpt_dir` points to the downloaded checkpoint directory,
+that all required files are present, and that you selected a task
+compatible with that checkpoint.
+```{=html}
+</details>
 ```
-##### (2) Run in animation mode 
-
-* Single-GPU inference 
-
-```bash
-python generate.py --task animate-14B --ckpt_dir ./Crocodile-2.2-Animate-14B/ --src_root_path ./examples/Crocodile_animate/animate/process_results/ --refert_num 1
+```{=html}
+<details>
 ```
-
-* Multi-GPU inference using FSDP + DeepSpeed Ulysses
-
-```bash
-python -m torch.distributed.run --nnodes 1 --nproc_per_node 8 generate.py --task animate-14B --ckpt_dir ./Crocodile-2.2-Animate-14B/ --src_root_path ./examples/Crocodile_animate/animate/process_results/ --refert_num 1 --dit_fsdp --t5_fsdp --ulysses_size 8
+```{=html}
+<summary>
 ```
-
-* Diffusers Pipeline
-
-```python
-from diffusers import CrocodileAnimatePipeline
-from diffusers.utils import export_to_video, load_image, load_video
-
-device = "cuda:0"
-dtype = torch.bfloat16
-model_id = "Crocodile/Crocodile-2.2-Animate-14B-Diffusers"
-pipe = CrocodileAnimatePipeline.from_pretrained(model_id torch_dtype=dtype)
-pipe.to(device)
-
-seed = 42
-prompt = "People in the video are doing actions."
-
-# Animation
-image = load_image("/path/to/animate/reference/image/src_ref.png")
-pose_video = load_video("/path/to/animate/pose/video/src_pose.mp4")
-face_video = load_video("/path/to/animate/face/video/src_face.mp4")
-
-animate_video = pipe(
-    image=image,
-    pose_video=pose_video,
-    face_video=face_video,
-    prompt=prompt,
-    mode="animate",
-    segment_frame_length=77,  # clip_len in original code
-    prev_segment_conditioning_frames=1,  # refert_num in original code
-    guidance_scale=1.0,
-    num_inference_steps=20,
-    generator=torch.Generator(device=device).manual_seed(seed),
-).frames[0]
-export_to_video(animate_video, "diffusers_animate.mp4", fps=30)
+`<strong>`{=html}Prompt extension fails`</strong>`{=html}
+```{=html}
+</summary>
 ```
-
-##### (3) Run in replacement mode 
-
-* Single-GPU inference 
-
-```bash
-python generate.py --task animate-14B --ckpt_dir ./Crocodile-2.2-Animate-14B/ --src_root_path ./examples/Crocodile_animate/replace/process_results/ --refert_num 1 --replace_flag --use_relighting_lora 
+Check whether your selected extension method requires network access, an
+API key, or a separately installed local model. Keep secrets out of your
+command history and repository.
+```{=html}
+</details>
 ```
+## Responsible use
 
-* Multi-GPU inference using FSDP + DeepSpeed Ulysses
+Use generated media responsibly. Respect privacy, consent, copyright,
+and the terms attached to datasets and checkpoints. Clearly disclose
+synthetic media where appropriate, and do not use the software to
+impersonate people or mislead others.
 
-```bash
-python -m torch.distributed.run --nnodes 1 --nproc_per_node 8 generate.py --task animate-14B --ckpt_dir ./Crocodile-2.2-Animate-14B/ --src_root_path ./examples/Crocodile_animate/replace/process_results/src_pose.mp4  --refert_num 1 --replace_flag --use_relighting_lora --dit_fsdp --t5_fsdp --ulysses_size 8
-```
+## Contributing
 
-* Diffusers Pipeline
+Issues and pull requests are welcome. When reporting a problem, include:
 
-```python
-# create pipeline as in the Animation code ☝️
+-   Operating system and Python version
+-   PyTorch and CUDA versions, if applicable
+-   GPU model and available VRAM
+-   The task and relevant command (remove all secrets first)
+-   A concise error log and steps to reproduce
 
-# Replacement
-image = load_image("/path/to/replace/reference/image/src_ref.png")
-pose_video = load_video("/path/to/replace/pose/video/src_pose.mp4")
-face_video = load_video("/path/to/replace/face/video/src_face.mp4")
-background_video = load_video("/path/to/replace/background/video/src_bg.mp4")
-mask_video = load_video("/path/to/replace/mask/video/src_mask.mp4")
+Keep pull requests focused, document behavior changes, and avoid
+committing checkpoints, generated outputs, caches, credentials, or
+environment files.
 
-replace_video = pipe(
-    image=image,
-    pose_video=pose_video,
-    face_video=face_video,
-    background_video=background_video,
-    mask_video=mask_video,
-    prompt=prompt,
-    mode="replace",
-    segment_frame_length=77,  # clip_len in original code
-    prev_segment_conditioning_frames=1,  # refert_num in original code
-    guidance_scale=1.0,
-    num_inference_steps=20,
-    generator=torch.Generator(device=device).manual_seed(seed),
-).frames[0]
-export_to_video(replace_video, "diffusers_replace.mp4", fps=30)
-```
+## Credits and attribution
 
-> 💡 If you're using **Crocodile-Animate**, we do not recommend using LoRA models trained on `Crocodile-2.2`, since weight changes during training may lead to unexpected behavior.
+Crocodile 2.2 is a community-maintained presentation of an existing
+research codebase. Please retain all original copyright notices, license
+files, citations, and required attributions included with the source.
+Renaming repository branding does not transfer ownership of the
+underlying research, code, weights, or trademarks.
 
-## Computational Efficiency on Different GPUs
+Read [`LICENSE.txt`](LICENSE.txt) and any model-specific license before
+redistributing or using checkpoints. If you publish research or
+derivative work, cite the original research and follow the citation
+instructions supplied by its authors.
 
-We test the computational efficiency of different **Crocodile-2.2** models on different GPUs in the following table. The results are presented in the format: **Total time (s) / peak GPU memory (GB)**.
+## License
 
+This repository includes an Apache License 2.0 text in `LICENSE.txt`.
+Individual checkpoints, third-party dependencies, datasets, and linked
+services may have separate terms. Review those terms independently
+before use or redistribution.
 
-<div align="center">
-    <img src="assets/comp_effic.png" alt="" style="width: 80%;" />
-</div>
+------------------------------------------------------------------------
 
-> The parameter settings for the tests presented in this table are as follows:
-> (1) Multi-GPU: 14B: `--ulysses_size 4/8 --dit_fsdp --t5_fsdp`, 5B: `--ulysses_size 4/8 --offload_model True --convert_model_dtype --t5_cpu`; Single-GPU: 14B: `--offload_model True --convert_model_dtype`, 5B: `--offload_model True --convert_model_dtype --t5_cpu`
-(--convert_model_dtype converts model parameter types to config.param_dtype);
-> (2) The distributed testing utilizes the built-in FSDP and Ulysses implementations, with FlashAttention3 deployed on Hopper architecture GPUs;
-> (3) Tests were run without the `--use_prompt_extend` flag;
-> (4) Reported results are the average of multiple samples taken after the warm-up phase.
+::: {align="center"}
+**CROCODILE 2.2**\
+*Explore. Create. Iterate.*
 
-
--------
-
-## Introduction of Crocodile-2.2
-
-**Crocodile-2.2** builds on the foundation of Crocodile2.1 with notable improvements in generation quality and model capability. This upgrade is driven by a series of key technical innovations, mainly including the Mixture-of-Experts (MoE) architecture, upgraded training data, and high-compression video generation.
-
-##### (1) Mixture-of-Experts (MoE) Architecture
-
-Crocodile-2.2 introduces Mixture-of-Experts (MoE) architecture into the video generation diffusion model. MoE has been widely validated in large language models as an efficient approach to increase total model parameters while keeping inference cost nearly unchanged. In Crocodile-2.2, the A14B model series adopts a two-expert design tailored to the denoising process of diffusion models: a high-noise expert for the early stages, focusing on overall layout; and a low-noise expert for the later stages, refining video details. Each expert model has about 14B parameters, resulting in a total of 27B parameters but only 14B active parameters per step, keeping inference computation and GPU memory nearly unchanged.
-
-<div align="center">
-    <img src="assets/moe_arch.png" alt="" style="width: 90%;" />
-</div>
-
-The transition point between the two experts is determined by the signal-to-noise ratio (SNR), a metric that decreases monotonically as the denoising step $t$ increases. At the beginning of the denoising process, $t$ is large and the noise level is high, so the SNR is at its minimum, denoted as ${SNR}_{min}$. In this stage, the high-noise expert is activated. We define a threshold step ${t}_{moe}$ corresponding to half of the ${SNR}_{min}$, and switch to the low-noise expert when $t<{t}_{moe}$.
-
-<div align="center">
-    <img src="assets/moe_2.png" alt="" style="width: 90%;" />
-</div>
-
-To validate the effectiveness of the MoE architecture, four settings are compared based on their validation loss curves. The baseline **Crocodile2.1** model does not employ the MoE architecture. Among the MoE-based variants, the **Crocodile2.1 & High-Noise Expert** reuses the Crocodile2.1 model as the low-noise expert while uses the  Crocodile-2.2's high-noise expert, while the **Crocodile2.1 & Low-Noise Expert** uses Crocodile2.1 as the high-noise expert and employ the Crocodile-2.2's low-noise expert. The **Crocodile-2.2 (MoE)** (our final version) achieves the lowest validation loss, indicating that its generated video distribution is closest to ground-truth and exhibits superior convergence.
-
-
-##### (2) Efficient High-Definition Hybrid TI2V
-To enable more efficient deployment, Crocodile-2.2 also explores a high-compression design. In addition to the 27B MoE models, a 5B dense model, i.e., TI2V-5B, is released. It is supported by a high-compression Crocodile-2.2-VAE, which achieves a $T\times H\times W$ compression ratio of $4\times16\times16$, increasing the overall compression rate to 64 while maintaining high-quality video reconstruction. With an additional patchification layer, the total compression ratio of TI2V-5B reaches $4\times32\times32$. Without specific optimization, TI2V-5B can generate a 5-second 720P video in under 9 minutes on a single consumer-grade GPU, ranking among the fastest 720P@24fps video generation models. This model also natively supports both text-to-video and image-to-video tasks within a single unified framework, covering both academic research and practical applications.
-
-
-<div align="center">
-    <img src="assets/vae.png" alt="" style="width: 80%;" />
-</div>
-
-
-
-##### Comparisons to SOTAs
-We compared Crocodile-2.2 with leading closed-source commercial models on our new Crocodile-Bench 2.0, evaluating performance across multiple crucial dimensions. The results demonstrate that Crocodile-2.2 achieves superior performance compared to these leading models.
-
-
-<div align="center">
-    <img src="assets/performance.png" alt="" style="width: 90%;" />
-</div>
-
-## Citation
-If you find our work helpful, please cite us.
-
-```
-@article{Crocodile2025,
-      title={Crocodile: Open and Advanced Large-Scale Video Generative Models}, 
-      author={Team Crocodile and Ang Crocodileg and Baole Ai and Bin Wen and Chaojie Mao and Chen-Wei Xie and Di Chen and Feiwu Yu and Haiming Zhao and Jianxiao Yang and Jianyuan Zeng and Jiayu Crocodileg and Jingfeng Zhang and Jingren Zhou and Jinkai Crocodileg and Jixuan Chen and Kai Zhu and Kang Zhao and Keyu Yan and Lianghua Huang and Mengyang Feng and Ningyi Zhang and Pandeng Li and Pingyu Wu and Ruihang Chu and Ruili Feng and Shiwei Zhang and Siyang Sun and Tao Fang and Tianxing Crocodileg and Tianyi Gui and Tingyu Weng and Tong Shen and Wei Lin and Wei Crocodileg and Wei Crocodileg and Wenmeng Zhou and Wente Crocodileg and Wenting Shen and Wenyuan Yu and Xianzhong Shi and Xiaoming Huang and Xin Xu and Yan Kou and Yangyu Lv and Yifei Li and Yijing Liu and Yiming Crocodileg and Yingya Zhang and Yitong Huang and Yong Li and You Wu and Yu Liu and Yulin Pan and Yun Zheng and Yuntao Hong and Yupeng Shi and Yutong Feng and Zeyinzi Jiang and Zhen Han and Zhi-Fan Wu and Ziyu Liu},
-      journal = {arXiv preprint arXiv:2503.20314},
-      year={2025}
-}
-```
-
-## License Agreement
-The models in this repository are licensed under the Apache 2.0 License. We claim no rights over the your generated contents, granting you the freedom to use them while ensuring that your usage complies with the provisions of this license. You are fully accountable for your use of the models, which must not involve sharing any content that violates applicable laws, causes harm to individuals or groups, disseminates personal information intended for harm, spreads misinformation, or targets vulnerable populations. For a complete list of restrictions and details regarding your rights, please refer to the full text of the [license](LICENSE.txt).
-
-
-## Acknowledgements
-
-We would like to thank the contributors to the [SD3](https://huggingface.co/stabilityai/stable-diffusion-3-medium), [Qwen](https://huggingface.co/Qwen), [umt5-xxl](https://huggingface.co/google/umt5-xxl), [diffusers](https://github.com/huggingface/diffusers) and [HuggingFace](https://huggingface.co) repositories, for their open research.
-
-
-
-## Contact Us
-If you would like to leave a message to our research or product teams, feel free to join our [Discord](https://discord.gg/AKNgpMK4Yj) or [WeChat groups](https://gw.alicdn.com/imgextra/i2/O1CN01tqjWFi1ByuyehkTSB_!!6000000000015-0-tps-611-1279.jpg)!
-
+Maintained by [@devgaleb](https://github.com/devgaleb)
+:::
