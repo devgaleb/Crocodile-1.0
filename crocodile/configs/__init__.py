@@ -1,0 +1,50 @@
+# Copyright 2024-2025 The Alibaba Wan Team Authors. All rights reserved.
+import copy
+import os
+
+os.environ['TOKENIZERS_PARALLELISM'] = 'false'
+
+from .Crocodile_i2v_A14B import i2v_A14B
+from .Crocodile_s2v_14B import s2v_14B
+from .Crocodile_t2v_A14B import t2v_A14B
+from .Crocodile_ti2v_5B import ti2v_5B
+from .Crocodile_animate_14B import animate_14B
+
+Crocodile_CONFIGS = {
+    't2v-A14B': t2v_A14B,
+    'i2v-A14B': i2v_A14B,
+    'ti2v-5B': ti2v_5B,
+    'animate-14B': animate_14B,
+    's2v-14B': s2v_14B,
+}
+
+SIZE_CONFIGS = {
+    '720*1280': (720, 1280),
+    '1280*720': (1280, 720),
+    '480*832': (480, 832),
+    '832*480': (832, 480),
+    '704*1280': (704, 1280),
+    '1280*704': (1280, 704),
+    '1024*704': (1024, 704),
+    '704*1024': (704, 1024),
+}
+
+MAX_AREA_CONFIGS = {
+    '720*1280': 720 * 1280,
+    '1280*720': 1280 * 720,
+    '480*832': 480 * 832,
+    '832*480': 832 * 480,
+    '704*1280': 704 * 1280,
+    '1280*704': 1280 * 704,
+    '1024*704': 1024 * 704,
+    '704*1024': 704 * 1024,
+}
+
+SUPPORTED_SIZES = {
+    't2v-A14B': ('720*1280', '1280*720', '480*832', '832*480'),
+    'i2v-A14B': ('720*1280', '1280*720', '480*832', '832*480'),
+    'ti2v-5B': ('704*1280', '1280*704'),
+    's2v-14B': ('720*1280', '1280*720', '480*832', '832*480', '1024*704',
+                '704*1024', '704*1280', '1280*704'),
+    'animate-14B': ('720*1280', '1280*720')
+}
